@@ -1,8 +1,10 @@
 package mv.sdd.io.json.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mv.sdd.facturation.Client;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -23,8 +25,15 @@ public class ClientJsonService {
                 clients);
     }
 
-    // TODO: Add readObjet
+    public Client readObjet(String path) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
 
-    // TODO: Add readList
+        return mapper.readValue(new FileInputStream(path), Client.class);
+    }
 
+    public List<Client> readList(String path) throws IOException{
+        ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.readValue(new FileInputStream(path), new TypeReference<List<Client>>(){});
+    }
 }

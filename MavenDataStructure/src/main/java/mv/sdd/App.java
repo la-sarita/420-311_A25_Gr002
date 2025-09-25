@@ -1,6 +1,8 @@
 package mv.sdd;
 
 import mv.sdd.facturation.Client;
+import mv.sdd.facturation.NomCoparator;
+import mv.sdd.facturation.SoldeComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +31,14 @@ public class App
         System.out.println(clients);
 
         Collections.sort(clients);
+        System.out.println(clients);
+
+        Collections.sort((clients), new NomCoparator());
+        System.out.println(clients);
+        Collections.sort((clients), new SoldeComparator());
+        System.out.println(clients);
+
+        Collections.reverse(clients);
         System.out.println(clients);
     }
 }

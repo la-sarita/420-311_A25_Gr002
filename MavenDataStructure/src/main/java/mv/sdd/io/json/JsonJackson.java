@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mv.sdd.facturation.Client;
+import mv.sdd.facturation.Item;
+import mv.sdd.io.json.services.ClientJsonService;
+import mv.sdd.io.json.services.ItemJsonService;
+import mv.sdd.io.json.services.JsonService;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,17 +16,15 @@ import java.util.List;
 
 public class JsonJackson {
     public static void main(String[] args) {
-        try {
-            convertObjToString();
-            convertObjToJsonFile();
-            deserialiserJsonObject();
-            deserialiserJsonObjectFile();
-            serDeserJsonArray();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        //            convertObjToString();
+//            convertObjToJsonFile();
+//            deserialiserJsonObject();
+//            deserialiserJsonObjectFile();
+//            serDeserJsonArray();
+
+
+        testerServices();
+
     }
 
     public static void convertObjToString() throws JsonProcessingException {
@@ -77,4 +79,42 @@ public class JsonJackson {
         });
         System.out.println(clients2.size());
     }
+
+    public static void testerServices() {
+        try {
+            // Utiliser le service ClientJsonService
+            ClientJsonService clientJsonService = new ClientJsonService();
+            Client client = new Client(12345, "Dupont", "Alice", 2500.75);
+            List<Client> clients = new ArrayList<>();
+            clients.add(new Client(200, "Alain", "Alain", 96500.00));
+            clients.add(new Client(300, "Giles", "Giles", 8700.00));
+            clients.add(new Client(100, "Alex", "Alex", 500.00));
+
+
+            // écrire un objet
+            clientJsonService.writeObjet(client, "data/clientService.json");
+            // écrire une liste
+            clientJsonService.writeList(clients, "data/clientsService.json");
+            // lire un objet
+            Client clientLu = clientJsonService.readObjet("data/clientService.json");
+            // lire une liste
+            List<Client> clientsLus = clientJsonService.readList("data/clientsService.json");
+
+            System.out.println(clientLu);
+            System.out.println(clientsLus);
+
+            Item item = new Item(10, "Tomate", "Tomate ronde", 2.5f);
+            ItemJsonService itemJsonService = new ItemJsonService();
+            itemJsonService.writeObjet(item, "data/itemService.json");
+
+            JsonService<Item> jsonService = new JsonService<>();
+            jsonService.writeObjet(item, "data/itemJsonService.json");
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
