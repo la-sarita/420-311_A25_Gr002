@@ -55,7 +55,9 @@ public class SeriePoo {
         return chaineTrans;
     }
 
-    public static double claculerTaxesVente(double montant, boolean appliqueTaxeProv, boolean appliqueTaxeFed){
+    public static double claculerTaxesVente(double montant,
+                                            boolean appliqueTaxeProv,
+                                            boolean appliqueTaxeFed){
         if(montant < 0)
             throw new IllegalArgumentException();
         if (montant == 0)
