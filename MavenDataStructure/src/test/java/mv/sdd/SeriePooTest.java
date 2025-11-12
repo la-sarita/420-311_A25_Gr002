@@ -1,8 +1,9 @@
 package mv.sdd;
 
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class SeriePooTest {
 
@@ -48,7 +49,7 @@ class SeriePooTest {
     }
 
     @Test
-    @DisplayName("Montant positif sans aucune taxe")
+    @DisplayName("Montant positif sans aucune taxe retourne le montant initial")
     void claculerTaxesVenteMontantPositifSansTaxes(){
         double resultat = SeriePoo.claculerTaxesVente(100, false, false);
         assertEquals(100, resultat);
@@ -62,14 +63,14 @@ class SeriePooTest {
     }
 
     @Test
-    @DisplayName("Montant positif avec taxe provinciale")
+    @DisplayName("Montant positif avec taxe fédérale")
     void claculerTaxesVenteMontantPositifAvecTaxeProv(){
         double resultat = SeriePoo.claculerTaxesVente(100, true, false);
         assertEquals(109.97, resultat, 0.01);
     }
 
     @Test
-    @DisplayName("Montant positif avec taxe fédérale")
+    @DisplayName("Montant positif avec taxe provinciale")
     void claculerTaxesVenteMontantPositifAvecTaxeFed(){
         double resultat = SeriePoo.claculerTaxesVente(100, false, true);
         assertEquals(105.00, resultat, 0.01);
